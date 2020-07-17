@@ -1,5 +1,7 @@
 package com.aaa.mapper;
 
+import com.aaa.vo.StatisticsVo;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -44,23 +46,28 @@ public interface StatisticsMapper {
     @Select("select  count(1) value,te.name  name from t_mapping_unit tu join  t_equipment te on tu.user_id =te.user_id group by te.name where tt.user_id=#{userid}")
     List<Map<String ,Object>> getCompanyShebei(Integer userid);
 
+    @Select("select ('特殊人员') name,count(1)  value from t_special_post where user_id= #{userid}")
+    List<Map<String,Object>> getCompanySpe(Integer  userid);
+
+    @Select("select ('项目数量') name, count(1)value   from t_mapping_project where user_id = #{userid}")
+    List<Map<String,Object>> getCompanyPro(Integer  userid);
 
     /**
      * 统计图3.1 这个查询不同等级的人员统计
      */
-    @Select("select  count(1) value,tu.qualification_level ," +
-            "tt.major_type from t_mapping_unit tu join  t_technicist tt " +
-            "on tu.user_id =tt.user_id group by tu.qualification_level ,tt.major_type")
-    List<Map<String,Object>> getPersonnelStatistics();
+//    @Select("select  count(1) value,tu.qualification_level ," +
+//            "tt.major_type from t_mapping_unit tu join  t_technicist tt " +
+//            "on tu.user_id =tt.user_id group by tu.qualification_level ,tt.major_type")
+    List<Map<String,Object>> getPersonnelStatistics(StatisticsVo statisticsVo);
 
     /**
      * 统计图3.2  查询不同等级的设备
      */
-    @Select("select  count(*) value ,tu.qualification_level ,te.name from t_mapping_unit tu join " +
-            " t_equipment te on tu.user_id =te.user_id group by tu.qualification_level ,te.name")
-    List<Map<String,Object>> getSheBeiStatistics();
+//    @Select("select  count(*) value ,tu.qualification_level ,te.name from t_mapping_unit tu join " +
+//            " t_equipment te on tu.user_id =te.user_id group by tu.qualification_level ,te.name")
+    List<Map<String,Object>> getSheBeiStatistics(StatisticsVo statisticsVo);
 
 
-
+    List<Map<String,Object>> getZhiStatistics(StatisticsVo statisticsVo);
 
 }

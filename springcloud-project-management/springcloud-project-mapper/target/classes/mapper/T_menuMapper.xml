@@ -23,5 +23,8 @@
              join t_menu tm on tm.MENU_ID =rm.MENU_ID
               where tm.PARENT_ID=#{parentid} and ur.USER_ID=#{userid}
   </select>
+    <select id="getSysMenu" resultMap="BaseResultMap">
+        select * from t_menu where PARENT_ID=#{pid}
+    </select>
 
 </mapper>

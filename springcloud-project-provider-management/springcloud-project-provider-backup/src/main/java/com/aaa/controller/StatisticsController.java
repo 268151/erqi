@@ -4,6 +4,7 @@ import com.aaa.base.BaseController;
 import com.aaa.base.ResultData;
 import com.aaa.service.StatisticsService;
 import com.aaa.utils.ObjectUtils;
+import com.aaa.vo.StatisticsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,8 +64,8 @@ public class StatisticsController extends BaseController {
      * @return
      */
     @GetMapping("/getSheBeiStatisticsAll")
-    public ResultData getSheBeiStatisticsAll(){
-        return reponseListStatus(statisticsService.getSheBeiStatisticsAll());
+    public ResultData getSheBeiStatisticsAll(StatisticsVo statisticsVo){
+        return reponseListStatus(statisticsService.getSheBeiStatisticsAll(statisticsVo));
     }
 
 }
