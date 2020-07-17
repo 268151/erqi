@@ -35,6 +35,7 @@ public class TechnicistController extends CommonController<T_technicist> {
 
 
     public ResultData updateTechnicist(T_technicist tTechnicist){
-        return updateTechnicist(tTechnicist);
+
+        return reponseupdate(technicistService.update(tTechnicist));
     }
 }

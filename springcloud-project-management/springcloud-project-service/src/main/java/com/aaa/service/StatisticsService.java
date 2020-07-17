@@ -1,6 +1,7 @@
 package com.aaa.service;
 
 import com.aaa.mapper.StatisticsMapper;
+import com.aaa.vo.StatisticsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,18 +41,22 @@ public class StatisticsService {
      */
    public List<Map<String ,Object>> getCompanyPeople(Integer userid){
         List<Map<String, Object>> companyPeople = statisticsMapper.getCompanyPeople(userid);
-        List<Map<String, Object>> companyShebei = statisticsMapper.getCompanyShebei(userid);
-        companyPeople.addAll(companyShebei);
+        List<Map<String, Object>> companyShebei = statisticsMapper.getCompanySpe(userid);
+       List<Map<String, Object>> companyPro = statisticsMapper.getCompanyPro(userid);
+       companyPeople.addAll(companyShebei);
+       companyPeople.addAll(companyPro);
         return companyPeople;
     }
 
     /**
      * 统计图3
      */
-   public List<Map<String,Object>> getSheBeiStatisticsAll(){
-        List<Map<String, Object>> personnelStatistics = statisticsMapper.getPersonnelStatistics();
-        List<Map<String, Object>> sheBeiStatistics = statisticsMapper.getSheBeiStatistics();
-        personnelStatistics.addAll(sheBeiStatistics);
+   public List<Map<String,Object>> getSheBeiStatisticsAll(StatisticsVo statisticsVo ){
+        List<Map<String, Object>> personnelStatistics = statisticsMapper.getPersonnelStatistics( statisticsVo);
+        List<Map<String, Object>> sheBeiStatistics = statisticsMapper.getSheBeiStatistics(statisticsVo);
+       List<Map<String, Object>> zhiStatistics = statisticsMapper.getZhiStatistics(statisticsVo);
+       personnelStatistics.addAll(sheBeiStatistics);
+       personnelStatistics.addAll(zhiStatistics);
         return personnelStatistics;
     }
 

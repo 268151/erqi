@@ -40,6 +40,7 @@ public class RoleService extends BaseService<T_role> {
      */
     @Transactional(rollbackFor=Exception.class)
     public int updateRoleMeun(TreeKeys treeKeys){
+
         int sum=0;
         int i = roleMapper.delByRoleid(treeKeys.getRoleId());
         if(i>0){
