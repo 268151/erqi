@@ -1,0 +1,90 @@
+package com.aaa.controller;
+
+import com.aaa.base.BaseService;
+import com.aaa.base.CommonController;
+import com.aaa.base.ResultData;
+import com.aaa.model.T_check_person;
+import com.aaa.service.CheckPersonService;
+import com.aaa.utils.DateUtils;
+import com.aaa.utils.FileNameUtils;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class CheckPersonController extends CommonController<T_check_person> {
+    @Override
+    public BaseService<T_check_person> getBaseService() {
+        return checkPersonService;
+    }
+
+    @Autowired
+    private CheckPersonService checkPersonService;
+
+    @GetMapping("/allcheckperson")
+    public ResultData selectCheckPersonBypage(T_check_person check_person,Integer pageNum,Integer pageSize){
+        try {
+
+            PageInfo<T_check_person> checkPerson = checkPersonService.selectAllCheckPerson(check_person, pageNum,pageSize);
+            if (checkPerson.getList().size()>0&&checkPerson!=null) {
+                return operationSuccess(checkPerson);
+            }else {
+                ResultData resultData = new ResultData();
+                resultData.setCode("1");
+                resultData.setMsg("暂无数据");
+                return resultData;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return operationFailed();
+    }
+
+
+    @PostMapping("/addCheckPersons")
+    public ResultData addCheckPerson(T_check_person check_person){
+        check_person.setId(Long.valueOf(FileNameUtils.getFileName()));
+        check_person.setCreateTime(DateUtils.getCurrentDate());
+        Integer integer = checkPersonService.addCheckPerson(check_person);
+
+        if (integer>0){
+            return insertSuccess();
+        }else {
+            return insertFailed();
+        }
+
+    }
+
+
+
+    @PostMapping("/updateCheckPersons")
+    public ResultData updateCheckPerson(T_check_person check_person){
+        check_person.setModifyTime(DateUtils.getCurrentDate());
+        Integer integer = checkPersonService.updateCheckPerson(check_person);
+
+        if (integer>0){
+            return updateSuccess();
+        }else {
+            return updateFailed();
+        }
+
+    }
+
+    @PostMapping("/delCheckPersons")
+    public ResultData delCheckPerson(T_check_person check_person){
+        Integer integer = checkPersonService.deleteCheckPerson(check_person);
+        if (integer>0){
+            return deleteSuccess();
+        }else {
+            return deleteFailed();
+        }
+
+    }
+
+
+
+
+    }
+

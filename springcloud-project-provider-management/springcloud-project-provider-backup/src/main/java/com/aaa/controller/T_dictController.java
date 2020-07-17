@@ -32,7 +32,7 @@ public class T_dictController extends CommonController<T_dict> {
      * @desc: 
      */
     
-    @GetMapping("/al1l")
+    @GetMapping("/alldict")
     public ResultData selectDictByPage(DictVo dictVo){
         try {
             PageInfo<T_dict> tDictPageInfo = tDictService.selectDictByPage(dictVo);

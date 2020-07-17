@@ -39,13 +39,13 @@ public class T_check_person {
      * 创建时间
      */
     @Column(name = "create_time")
-    private Date createTime;
+    private String createTime;
 
     /**
      * 修改时间
      */
     @Column(name = "modify_time")
-    private Date modifyTime;
+    private String modifyTime;
 
     /**
      * 备注
@@ -147,7 +147,7 @@ public class T_check_person {
      *
      * @return create_time - 创建时间
      */
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
@@ -156,7 +156,7 @@ public class T_check_person {
      *
      * @param createTime 创建时间
      */
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -165,7 +165,7 @@ public class T_check_person {
      *
      * @return modify_time - 修改时间
      */
-    public Date getModifyTime() {
+    public String getModifyTime() {
         return modifyTime;
     }
 
@@ -174,7 +174,7 @@ public class T_check_person {
      *
      * @param modifyTime 修改时间
      */
-    public void setModifyTime(Date modifyTime) {
+    public void setModifyTime(String modifyTime) {
         this.modifyTime = modifyTime;
     }
 

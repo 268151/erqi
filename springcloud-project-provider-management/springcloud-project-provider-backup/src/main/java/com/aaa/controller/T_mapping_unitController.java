@@ -23,12 +23,23 @@ public class T_mapping_unitController extends CommonController<T_mapping_unit> {
 
 
     @GetMapping("/selectUnitList")
-    public ResultData selectUnitList(@RequestParam(value = "currentPage",required = false,defaultValue = "1") Integer currentPage,
-                                     @RequestParam(value = "pageSize",required = false,defaultValue = "5") Integer pageSize,String unitName){
-        PageInfo<T_mapping_unit> tMappingUnitPageInfo = t_mapping_unitService.selectUnitList(currentPage,pageSize,unitName);
+    public ResultData selectUnitList(T_mapping_unit mapping_unit,Integer pageNum, Integer pageSize){
+        PageInfo<T_mapping_unit> tMappingUnitPageInfo = t_mapping_unitService.selectUnitList(mapping_unit,pageNum,pageSize);
         if (tMappingUnitPageInfo == null){
             return operationFailed("暂无数据");
         }
         return operationSuccess(tMappingUnitPageInfo);
+    }
+
+
+    @PostMapping("/updateUnit")
+    public ResultData updateUint(T_mapping_unit mapping_unit){
+
+        Integer i = t_mapping_unitService.updateMappingUnit(mapping_unit);
+        if (i>0){
+            return operationSuccess();
+        }else {
+            return operationFailed();
+        }
     }
 }

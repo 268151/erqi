@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 @Service
 public class T_scoreService extends BaseService<T_score> {
 
@@ -39,6 +41,16 @@ public class T_scoreService extends BaseService<T_score> {
         t_score.setUnitId(unit_id);
         PageInfo<T_score> scorePageInfo = super.selectListByPage(t_score, scoreVo.getPageNum(), scoreVo.getPageSize());
         return scorePageInfo;
+    }
+
+    public Integer addScore(Long id, Integer score_plus, Integer score_subtract, Integer score, Long unit_id, String reason, String create_time , Date modify_time){
+        T_score tScore = new T_score() ;
+        tScore.setId(id).setScorePlus(score_plus).setScoreSubtract(score_subtract).setScore(score).setUnitId(unit_id).setReason(reason).setCreateTime(create_time).setModifyTime(modify_time);
+
+        if (tScore != null && !"" .equals(tScore)) {
+            return super.add(tScore);
+        }
+            return null;
     }
 
 
@@ -93,4 +105,6 @@ public class T_scoreService extends BaseService<T_score> {
         }
         return false;
     }*/
+
+
 }

@@ -13,19 +13,39 @@ import java.util.List;
 @Service
 public class T_mapping_unitService extends BaseService<T_mapping_unit> {
 
-    @Autowired
-    private T_mapping_unitMapper t_mapping_unitMapper;
+  @Autowired
+  private T_mapping_unitMapper t_mapping_unitMapper;
 
-    public PageInfo<T_mapping_unit> selectUnitList(Integer currentPage, Integer pageSize,String unitName){
+    public PageInfo<T_mapping_unit> selectUnitList(T_mapping_unit mapping_unit,Integer pageNum, Integer pageSize) {
         //获取分页信息，进行分页设置
-        PageHelper.startPage(currentPage,pageSize);
+
         //进行查询
-        List<T_mapping_unit> tMappingUnits = t_mapping_unitMapper.selectUnitList(unitName);
-        if (tMappingUnits.size() > 0) {
-            return new PageInfo(tMappingUnits);
+        PageInfo<T_mapping_unit> tMappingUnits = super.selectListByPage(mapping_unit,pageNum,pageSize);
+        if (tMappingUnits.getSize() > 0 ) {
+            return tMappingUnits;
         }
         return null;
     }
 
+    /**
+     * @author: dz
+     * @createtime: 2020/7/16 17:15
+     * @param:
+     * @desc: 修改单位审核状态
+     */
 
+    public Integer updateMappingUnit(T_mapping_unit mapping_unit) {
+        mapping_unit.setAuditStatus(0);
+        return super.update(mapping_unit);
+    }
+
+
+    public Long updateScore(Integer scorePlus, Integer scoreSubtract, Long unitId) {
+        Long aLong = t_mapping_unitMapper.updateScore(scorePlus, scoreSubtract, unitId);
+        if (aLong != null && aLong > 0) {
+            return aLong;
+        }
+        return null;
+    }
 }
+

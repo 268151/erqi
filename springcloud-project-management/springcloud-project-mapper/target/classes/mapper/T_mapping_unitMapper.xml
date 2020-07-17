@@ -60,10 +60,31 @@
     <result column="coordinate" property="coordinate" jdbcType="LONGVARCHAR" />
   </resultMap>
 
-  <select id="selectUnitList" parameterType="String" resultMap="BaseResultMap">
+
+
+  <update id="UpdateMappingScore" parameterType="com.aaa.model.T_mapping_unit">
+    update t_mapping_unit set score=score+(#{score}) where id=#{id}
+  </update>
+
+
+  <update id="updateScore">
+  update t_mapping_unit
+  <if test="scorePlus != null">
+    set score = score + #{scorePlus}
+  </if>
+  <if test="scoreSubtract != null" >
+    set score = score- #{scoreSubtract}
+  </if>
+  <where>
+  id = #{unitId}
+  </where>
+  </update>
+  <!--<select id="selectUnitList" resultType="com.aaa.model.T_mapping_unit">
     select * from t_mapping_unit where 1=1
-    <if test="unitName != null">
-      and unit_name=#{unitName}
+    <if test="#{unit_Name}!=null">
+      and unit_name like concat('%',#{unitName},'%')
     </if>
-  </select>
+  </select>-->
+
+
 </mapper>
