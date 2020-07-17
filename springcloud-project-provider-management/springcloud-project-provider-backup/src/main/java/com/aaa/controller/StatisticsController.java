@@ -7,6 +7,8 @@ import com.aaa.utils.ObjectUtils;
 import com.aaa.vo.StatisticsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -54,7 +56,7 @@ public class StatisticsController extends BaseController {
      * @return
      */
     @GetMapping("/getCompanyPeople")
-    public ResultData getCompanyPeople(Integer uid){
+    public ResultData getCompanyPeople(@RequestParam("uid") Integer uid){
         List<Map<String, Object>> companyPeople = statisticsService.getCompanyPeople(uid);
         return reponseListStatus(companyPeople);
     }
@@ -64,7 +66,7 @@ public class StatisticsController extends BaseController {
      * @return
      */
     @GetMapping("/getSheBeiStatisticsAll")
-    public ResultData getSheBeiStatisticsAll(StatisticsVo statisticsVo){
+    public ResultData getSheBeiStatisticsAll(@RequestBody StatisticsVo statisticsVo){
         return reponseListStatus(statisticsService.getSheBeiStatisticsAll(statisticsVo));
     }
 

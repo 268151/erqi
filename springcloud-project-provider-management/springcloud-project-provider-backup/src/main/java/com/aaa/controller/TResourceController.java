@@ -55,6 +55,6 @@ public class TResourceController extends CommonController<T_resource> {
         return reponseupdate(tResourceService.update(tResource));
     }
 
-
+    // TODO 资源有待完善
 
 }

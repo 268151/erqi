@@ -2,12 +2,17 @@ package com.aaa.service;
 
 import com.aaa.base.ResultData;
 import com.aaa.model.LoginLog;
+import com.aaa.model.T_role;
+import com.aaa.model.T_special_post;
 import com.aaa.model.T_user;
+import com.aaa.vo.StatisticsVo;
+import com.aaa.vo.TreeKeys;
 import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author: dz
@@ -15,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @param:
  * @desc:
  */
-@FeignClient(value = "")
+@FeignClient("yangjian")
 public interface IProjectService {
 
     /**
@@ -31,6 +36,9 @@ public interface IProjectService {
     @PostMapping("/addLoginLog")
     Integer addLoginLog(@RequestBody LoginLog loginLog);
 
+
+    //TODO 角色操作 有关角色的增删改查   权限树
+
     /**
      * 获取菜单
      * @param uid
@@ -45,6 +53,49 @@ public interface IProjectService {
      */
     @GetMapping("/getTree")
     public ResultData getTree();
+
+
+    @PostMapping("/role/getRole")
+    public ResultData getRole(@RequestBody T_role t_role);
+
+    @PostMapping("/role/updateResource")
+    public ResultData updateResource(@RequestBody TreeKeys treeKeys);
+
+
+    @GetMapping("/role/getCheckNode")
+    public ResultData getCheckNode(@Param("rid") Integer rid);
+
+    @GetMapping("/getSysMenu")
+    public ResultData getSysMenu();
+
+
+    //TODO 统计图api
+
+
+    @GetMapping("/getQualification")
+    public ResultData getQualification();
+
+    @GetMapping("/getNoproject")
+    public ResultData getNoproject();
+
+    @GetMapping("/getCompanyPeople")
+    public ResultData getCompanyPeople(@RequestParam("uid") Integer uid);
+
+    @GetMapping("/getSheBeiStatisticsAll")
+    public ResultData getSheBeiStatisticsAll(@RequestBody StatisticsVo statisticsVo);
+
+    //TODO  特殊人员
+
+    @GetMapping("/getSpecial")
+    public ResultData getSpecial(@RequestBody T_special_post tSpecialPost, @RequestParam Integer pageNo, @RequestParam Integer PageSize);
+
+
+    @GetMapping("/insertSpecial")
+    public ResultData insertSpecial(@RequestBody T_special_post tSpecialPost);
+
+    @GetMapping("/delSpecial")
+    public   ResultData delSpecial(T_special_post tSpecialPost);
+
 
 
 

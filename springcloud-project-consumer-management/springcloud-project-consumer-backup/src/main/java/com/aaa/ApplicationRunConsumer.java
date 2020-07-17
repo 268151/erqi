@@ -7,8 +7,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"com.aaa"})
+@EnableFeignClients
 public class ApplicationRunConsumer {
+
+
+
     public static void main(String[] args) {
         SpringApplication.run(ApplicationRunConsumer.class,args);
     }

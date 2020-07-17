@@ -36,7 +36,7 @@ public class RoleController extends CommonController<T_role> {
      * @return
      */
     @PostMapping("/getRole")
-    public ResultData getRole(T_role  t_role){
+    public ResultData getRole(@RequestBody T_role  t_role){
         List<T_role> selectall = roleService.selectall(t_role);
         if(selectall!=null&&selectall.size()>0){
          return    operationSuccess(selectall);
