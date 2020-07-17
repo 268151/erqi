@@ -33,6 +33,7 @@ public class LoginController extends CommonController<T_user> {
     @PostMapping("/doLogin")
     public ResultData doLogin(@RequestBody T_user user){
         TokenVo tokenVo=loginService.doLogin(user);
+        System.out.println(111);
         if(tokenVo.getIfSuccess()) {
             return super.loginSuccess(tokenVo.getToken());
         } else if(tokenVo.getType() == 1) {
