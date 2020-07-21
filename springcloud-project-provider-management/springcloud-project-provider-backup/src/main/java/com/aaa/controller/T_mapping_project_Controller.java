@@ -4,15 +4,18 @@ import com.aaa.base.BaseService;
 import com.aaa.base.CommonController;
 import com.aaa.base.ResultData;
 import com.aaa.model.T_mapping_project;
+import com.aaa.model.T_resource;
 import com.aaa.service.T_mapping_projectService;
 import com.aaa.service.T_resourceService;
 import com.aaa.service.T_result_commitService;
+import com.aaa.utils.IdWorker;
 import com.aaa.vo.MappingProjectVo;
 import com.github.pagehelper.PageInfo;
 import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 
@@ -36,6 +39,8 @@ public class T_mapping_project_Controller extends CommonController<T_mapping_pro
     private T_resourceService t_resourceService;
     @Autowired
     private T_result_commitService commitService;
+
+
 
     @GetMapping("/allProject")
     public ResultData selectProjectByPage(MappingProjectVo mappingProjectVo){
@@ -87,9 +92,9 @@ public class T_mapping_project_Controller extends CommonController<T_mapping_pro
      */
 
     @GetMapping("/ByUserIdProject")
-    public ResultData selectProjectByUserId(MappingProjectVo mappingProjectVo,Long user_id){
+    public ResultData selectProjectByUserId(MappingProjectVo mappingProjectVo,Long user_id,String projectType){
         try {
-            PageInfo<T_mapping_project> mapping_projectByUserId = mapping_projectService.selectProjectByUserId(mappingProjectVo,user_id);
+            PageInfo<T_mapping_project> mapping_projectByUserId = mapping_projectService.selectProjectByUserId(mappingProjectVo,user_id,projectType);
             if (mapping_projectByUserId.getList().size()>0&&mapping_projectByUserId!=null) {
                 return operationSuccess(mapping_projectByUserId);
             }else {
@@ -102,5 +107,32 @@ public class T_mapping_project_Controller extends CommonController<T_mapping_pro
             e.printStackTrace();
         }
         return operationFailed();
+    }
+
+
+    /**
+     * @author: dz
+     * @createtime: 2020/7/20 21:35
+     * @param:
+     * @desc: 项目添加
+     */
+
+    @PostMapping(value = "/addMappingProject",consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultData addMappingProject(T_mapping_project mapping_project, MultipartFile[] multipartFile, String refBizType){
+           try{
+            Long addOfResult = mapping_projectService.addMappingProject(mapping_project);
+            if (addOfResult==0) {
+               return insertFailed();
+            }
+               Boolean aBoolean = mapping_projectService.beforeToDo(multipartFile, refBizType,t_resourceService, addOfResult);
+            if (aBoolean){
+                return insertSuccess();
+            }
+           }catch (Exception e){
+               e.printStackTrace();
+           }
+
+        return insertFailed();
     }
 }
