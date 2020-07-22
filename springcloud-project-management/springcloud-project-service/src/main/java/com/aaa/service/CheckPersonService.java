@@ -3,13 +3,24 @@ package com.aaa.service;
 import com.aaa.base.BaseService;
 import com.aaa.model.T_check_person;
 
+import com.aaa.model.T_mapping_unit;
+import com.aaa.utils.ObjectUtils;
+import com.aaa.utils.RandomList;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CheckPersonService extends BaseService<T_check_person> {
 
-/**
+    public static List<T_check_person> listcheck;
+
+    public static void setListcheck(List<T_check_person> listcheck) {
+        CheckPersonService.listcheck = listcheck;
+    }
+
+    /**
  * @author: dz
  * @createtime: 2020/7/17 16:26
  * @param:
@@ -59,5 +70,25 @@ public class CheckPersonService extends BaseService<T_check_person> {
         return 0;
 
     }
+
+    /**
+     * 随机抽查的人
+     * @param scale
+     * @return
+     */
+    public List<T_check_person> RandomPerson(Double scale){
+        if(ObjectUtils.CollectionIsNull(listcheck)) {
+            T_check_person tperson=new T_check_person();
+            List<T_check_person> romdan = selectList(tperson);
+            if (ObjectUtils.CollectionIsNull(romdan)) {
+                return null;
+            }
+            listcheck= RandomList.randomList(scale,romdan);
+        }
+        return listcheck;
+    }
+
+
+
 
 }

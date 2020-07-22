@@ -79,12 +79,16 @@
   id = #{unitId}
   </where>
   </update>
-  <!--<select id="selectUnitList" resultType="com.aaa.model.T_mapping_unit">
-    select * from t_mapping_unit where 1=1
-    <if test="#{unit_Name}!=null">
-      and unit_name like concat('%',#{unitName},'%')
-    </if>
-  </select>-->
+
+
+    <select id="getRomdan" resultMap="BaseResultMap">
+        SELECT * FROM t_mapping_unit
+          where qualification_level='丙级' or qualification_level='丁级'
+        <if test="qu != null">
+          and owned_district=#{qu}
+        </if>
+    </select>
+
 
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.aaa.service;
 
 import com.aaa.mapper.StatisticsMapper;
+import com.aaa.vo.StatisticsLevelVo;
 import com.aaa.vo.StatisticsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,7 +62,80 @@ public class StatisticsService {
     }
 
 
+    public List<StatisticsLevelVo> getMapToVo(StatisticsVo statisticsVo){
+        List<Map<String, Object>> sheBeiStatisticsAll = getSheBeiStatisticsAll(statisticsVo);
+        StatisticsLevelVo jia = new StatisticsLevelVo().setName("甲级");
+        StatisticsLevelVo yi = new StatisticsLevelVo().setName("乙级");
+        StatisticsLevelVo bing = new StatisticsLevelVo().setName("丙级");
+        StatisticsLevelVo ding= new StatisticsLevelVo().setName("丁级");
+        ArrayList<StatisticsLevelVo> arrayList=new ArrayList<>();
+
+        String [] name={"甲级","乙级","丙级","丁级"};
+
+        arrayList.add(jia);
+        arrayList.add(yi);
+        arrayList.add(bing);
+        arrayList.add(ding);
 
 
+            for(int i=0;i<name.length;i++ ) {
+                for (Map<String, Object> map : sheBeiStatisticsAll) {
+                if (name[i].equals(map.get("level")) && "中级技术人员".equals(map.get("type"))) {
+                    arrayList.get(i).setZhongCount(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && "初级技术人员".equals(map.get("type"))) {
+                    arrayList.get(i).setChuCount(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && "高级技术人员".equals(map.get("type"))) {
+                    arrayList.get(i).setGaoCount(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && "测距仪".equals(map.get("type"))) {
+                    arrayList.get(i).setCeJu(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && "水准仪".equals(map.get("type"))) {
+                    arrayList.get(i).setShuiZhui(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && "接收机".equals(map.get("type"))) {
+                    arrayList.get(i).setJie(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && "全站仪".equals(map.get("type"))) {
+                    arrayList.get(i).setQuan(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && "测速仪".equals(map.get("type"))) {
+                    arrayList.get(i).setShu(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && "水位仪".equals(map.get("type"))) {
+                    arrayList.get(i).setShuiWei(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && "声速仪".equals(map.get("type"))) {
+                    arrayList.get(i).setSheng(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && "地下管线探测仪".equals(map.get("type"))) {
+                    arrayList.get(i).setDixia(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && "无人飞行器".equals(map.get("type"))) {
+                    arrayList.get(i).setWuren(Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && map.get("type")!=null && (map.get("type")+"").contains("GPS")) {
+                    arrayList.get(i).setGPS(arrayList.get(i).getGPS()+Integer.valueOf(map.get("value").toString()));
+                }
+                if (name[i].equals(map.get("level")) && map.get("type")!=null && (map.get("type")+"").contains("RTK")) {
+                    arrayList.get(i).setRtk(arrayList.get(i).getRtk()+Integer.valueOf(map.get("value").toString()));
+                }
+                    if (name[i].equals(map.get("level")) && map.get("levelvalue")!=null) {
+                        arrayList.get(i).setCount(Integer.valueOf(map.get("levelvalue").toString()));
+                    }
+            }
 
+        }
+        return arrayList;
+    }
+
+
+    public static void main(String[] args) {
+         String s="GSP接收街";
+         String b="GSP";
+        System.out.println(s.contains(b));
+
+    }
 }

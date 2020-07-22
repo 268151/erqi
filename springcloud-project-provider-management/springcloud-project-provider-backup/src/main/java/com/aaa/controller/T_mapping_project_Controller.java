@@ -12,9 +12,13 @@ import com.github.pagehelper.PageInfo;
 import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: dz
@@ -103,4 +107,19 @@ public class T_mapping_project_Controller extends CommonController<T_mapping_pro
         }
         return operationFailed();
     }
+
+
+
+
+    @RequestMapping("/updateProject")
+    public ResultData updateProject(@RequestParam Map map){
+        return update(map);
+    }
+
+
+
+
+
+
+
 }

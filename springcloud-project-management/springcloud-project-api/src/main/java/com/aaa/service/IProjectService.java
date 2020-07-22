@@ -9,10 +9,7 @@ import com.aaa.vo.StatisticsVo;
 import com.aaa.vo.TreeKeys;
 import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: dz
@@ -45,7 +42,7 @@ public interface IProjectService {
      * @return
      */
     @GetMapping("/getMenu")
-    public ResultData getMenu(@Param("uid") Integer uid);
+    public ResultData getMenu(@RequestParam("uid") Integer uid);
 
     /**
      * 获取权限树
@@ -63,7 +60,7 @@ public interface IProjectService {
 
 
     @GetMapping("/role/getCheckNode")
-    public ResultData getCheckNode(@Param("rid") Integer rid);
+    public ResultData getCheckNode(@RequestParam("rid") Integer rid);
 
     @GetMapping("/getSysMenu")
     public ResultData getSysMenu();
@@ -86,15 +83,15 @@ public interface IProjectService {
 
     //TODO  特殊人员
 
-    @GetMapping("/getSpecial")
-    public ResultData getSpecial(@RequestBody T_special_post tSpecialPost, @RequestParam Integer pageNo, @RequestParam Integer PageSize);
+    @PostMapping("/getSpecial")
+    public ResultData getSpecial(@RequestBody T_special_post tSpecialPost,@RequestParam("pageNo") Integer pageNo,@RequestParam("PageSize")   Integer PageSize);
 
 
     @GetMapping("/insertSpecial")
     public ResultData insertSpecial(@RequestBody T_special_post tSpecialPost);
 
     @GetMapping("/delSpecial")
-    public   ResultData delSpecial(T_special_post tSpecialPost);
+    public   ResultData delSpecial(@RequestBody T_special_post tSpecialPost);
 
 
 
