@@ -28,13 +28,13 @@ public class T_news {
      * 创建时间
      */
     @Column(name = "gmt_create")
-    private Date gmtCreate;
+    private String gmtCreate;
 
     /**
      * 记录最近一次修改时间
      */
     @Column(name = "gmt_modified")
-    private Date gmtModified;
+    private String gmtModified;
 
     /**
      * 正文
@@ -100,7 +100,7 @@ public class T_news {
      *
      * @return gmt_create - 创建时间
      */
-    public Date getGmtCreate() {
+    public String getGmtCreate() {
         return gmtCreate;
     }
 
@@ -109,7 +109,7 @@ public class T_news {
      *
      * @param gmtCreate 创建时间
      */
-    public void setGmtCreate(Date gmtCreate) {
+    public void setGmtCreate(String gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
@@ -118,7 +118,7 @@ public class T_news {
      *
      * @return gmt_modified - 记录最近一次修改时间
      */
-    public Date getGmtModified() {
+    public String getGmtModified() {
         return gmtModified;
     }
 
@@ -127,7 +127,7 @@ public class T_news {
      *
      * @param gmtModified 记录最近一次修改时间
      */
-    public void setGmtModified(Date gmtModified) {
+    public void setGmtModified(String gmtModified) {
         this.gmtModified = gmtModified;
     }
 

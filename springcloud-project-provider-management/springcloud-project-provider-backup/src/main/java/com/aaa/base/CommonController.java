@@ -215,14 +215,18 @@ public abstract class CommonController<T> extends BaseController {
     /**
      * 查询集合，分页查询
      * @param map
-     * @param pageNo
-     * @param pageSize
+     * @param
+     * @param
      * @return
      */
-    public ResultData selectListByPage(@RequestBody Map map,@RequestParam("pageNo")Integer pageNo,@RequestParam("pageSize") Integer pageSize){
+    public ResultData selectListByPage(@RequestBody Map map){
         // 1.Map转实体类
+        Integer pageNo= Integer.parseInt(map.get("pageNo").toString());
+        Integer pageSize= Integer.parseInt(map.get("pageNo").toString());
+        map.put("pageNo",pageNo);
+        map.put("pageSize",pageSize);
         T instance = getBaseService().newInstance(map);
-        PageInfo<T> selectListByPage = getBaseService().selectListByPage(instance, pageNo, pageSize);
+        PageInfo<T> selectListByPage = getBaseService().selectListByPage(instance,pageNo,pageSize);
         List<T> resultList = selectListByPage.getList();
         if(resultList.size() > 0) {
             return operationSuccess(selectListByPage);
