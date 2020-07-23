@@ -154,7 +154,7 @@ public class T_mapping_projectService extends BaseService<T_mapping_project> {
                     .setRefBizId(tyid)
                     .setCreateTime(new Date())
                     .setModifyTime(new Date());
-             add = resourceService.addIsNull(resource);
+             add = resourceService.add(resource);
 
         /*}*/
         if (add >0 && uploadFileOfResult) {

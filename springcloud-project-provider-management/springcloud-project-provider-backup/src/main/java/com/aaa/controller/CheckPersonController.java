@@ -4,14 +4,22 @@ import com.aaa.base.BaseService;
 import com.aaa.base.CommonController;
 import com.aaa.base.ResultData;
 import com.aaa.model.T_check_person;
+import com.aaa.model.T_mapping_unit;
 import com.aaa.service.CheckPersonService;
 import com.aaa.utils.DateUtils;
 import com.aaa.utils.FileNameUtils;
+import com.aaa.utils.PageInfoRandom;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RestController
 public class CheckPersonController extends CommonController<T_check_person> {
@@ -23,8 +31,8 @@ public class CheckPersonController extends CommonController<T_check_person> {
     @Autowired
     private CheckPersonService checkPersonService;
 
-    @GetMapping("/allcheckperson")
-    public ResultData selectCheckPersonBypage(T_check_person check_person,Integer pageNum,Integer pageSize){
+    @PostMapping("/allcheckperson")
+    public ResultData selectCheckPersonBypage(@RequestBody T_check_person check_person, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize){
         try {
 
             PageInfo<T_check_person> checkPerson = checkPersonService.selectAllCheckPerson(check_person, pageNum,pageSize);
@@ -84,6 +92,34 @@ public class CheckPersonController extends CommonController<T_check_person> {
     }
 
 
+
+
+//    /**
+//     * 抽查分页查询
+//     * @param pageNum
+//     * @param pageSize
+//     * @return
+//     */
+//    @GetMapping("/getRandomUnitlimitCheck")
+//    public ResultData  getRandomUnitlimitCheck(@RequestParam Integer  pageNum, @RequestParam Integer pageSize){
+//        PageInfoRandom<T_mapping_unit> pageInfo=new PageInfoRandom(CheckPersonService.listcheck,pageNum,pageSize);
+//        return operationSuccess(pageInfo);
+//    }
+//
+//    /**'
+//     * 抽查表初始化
+//     * @param scale
+//     * @param pageNum
+//     * @param pageSize
+//     * @return
+//     */
+//    @GetMapping("/getRandomUnitinitCheck")
+//    public ResultData  getRandomUnitinitCheck(@RequestParam Double scale,@RequestParam Integer  pageNum,@RequestParam Integer pageSize){
+//        CheckPersonService.setListcheck(null);
+//        List<T_check_person> randomUnit = checkPersonService.RandomPerson(scale);
+//        PageInfoRandom<T_check_person> pageInfo=new PageInfoRandom<>(randomUnit,pageNum,pageSize);
+//        return operationSuccess(pageInfo);
+//    }
 
 
     }

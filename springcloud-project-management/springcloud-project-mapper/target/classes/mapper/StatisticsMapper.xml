@@ -5,7 +5,11 @@
 
     <select id="getPersonnelStatistics" resultType="java.util.Map">
 
+<<<<<<< HEAD
       select  count(1),tu.qualification_level ,tt.major_type from t_mapping_unit tu join  t_technicist tt on tu.user_id =tt.user_id
+=======
+      select  count(1) value ,tu.qualification_level level ,tt.major_type type from t_mapping_unit tu join  t_technicist tt on tu.user_id =tt.user_id
+>>>>>>> 0afed970f5ad35223450cd8be0f4e2dbca39067f
        <where>
            <if test="qu == 0 and qu != null" >
              tu.owned_district not in ('江城区','阳春市','阳东区','阳西县')
@@ -22,7 +26,11 @@
 
     </select>
     <select id="getSheBeiStatistics" resultType="java.util.Map">
+<<<<<<< HEAD
    select  count(*),tu.qualification_level ,te.name from t_mapping_unit tu join  t_equipment te on tu.user_id =te.user_id
+=======
+   select  count(1) value ,tu.qualification_level level ,te.name type from t_mapping_unit tu join  t_equipment te on tu.user_id =te.user_id
+>>>>>>> 0afed970f5ad35223450cd8be0f4e2dbca39067f
         <where>
 
             <if test="qu == 0 and qu!=null" >

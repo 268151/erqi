@@ -41,14 +41,13 @@ public class T_mapping_project_Controller extends CommonController<T_mapping_pro
     private T_result_commitService commitService;
 
 
-
     @PostMapping("/allProject")
-    public ResultData selectProjectByPage(@RequestBody MappingProjectVo mappingProjectVo){
+    public ResultData selectProjectByPage(@RequestBody MappingProjectVo mappingProjectVo) {
         try {
             PageInfo<T_mapping_project> mapping_projectPage = mapping_projectService.selectProjectByPage(mappingProjectVo);
-            if (mapping_projectPage.getList().size()>0&&mapping_projectPage!=null) {
+            if (mapping_projectPage.getList().size() > 0 && mapping_projectPage != null) {
                 return operationSuccess(mapping_projectPage);
-            }else {
+            } else {
                 ResultData resultData = new ResultData();
                 resultData.setCode("1");
                 resultData.setMsg("暂无数据");
@@ -68,14 +67,14 @@ public class T_mapping_project_Controller extends CommonController<T_mapping_pro
      */
 
     @GetMapping("/selectProResultResource")
-    public ResultData selelctPRR(Long id){
-        HashMap map=new HashMap();
+    public ResultData selelctPRR(Long id) {
+        HashMap map = new HashMap();
 
-        map.put("project",mapping_projectService.selectList(id));
-        map.put("result",commitService.selectList(id));
-        map.put("project",t_resourceService.selectList(id));
+        map.put("project", mapping_projectService.selectList(id));
+        map.put("result", commitService.selectList(id));
+        map.put("project", t_resourceService.selectList(id));
 
-        if (map!=null&&map.size()>0){
+        if (map != null && map.size() > 0) {
             return operationSuccess(map);
         }
         return operationFailed();
@@ -84,30 +83,7 @@ public class T_mapping_project_Controller extends CommonController<T_mapping_pro
 
 
 
-    /**
-     * @author: dz
-     * @createtime: 2020/7/16 16:29
-     * @param:
-     * @desc: 在单位模块，根据user_id查询项目信息
-     */
 
-    @PostMapping("/ByUserIdProject")
-    public ResultData selectProjectByUserId(MappingProjectVo mappingProjectVo,Long user_id,String projectType){
-        try {
-            PageInfo<T_mapping_project> mapping_projectByUserId = mapping_projectService.selectProjectByUserId(mappingProjectVo,user_id,projectType);
-            if (mapping_projectByUserId.getList().size()>0&&mapping_projectByUserId!=null) {
-                return operationSuccess(mapping_projectByUserId);
-            }else {
-                ResultData resultData = new ResultData();
-                resultData.setCode("1");
-                resultData.setMsg("暂无数据");
-                return resultData;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return operationFailed();
-    }
 
 
     /**
@@ -149,23 +125,23 @@ public class T_mapping_project_Controller extends CommonController<T_mapping_pro
                                         @RequestParam(value = "creditStatus",required = false) String creditStatus,
                                         @RequestParam(value = "submitStatus",required = false) String submitStatus,
                                         @RequestParam(value = "userId") Long userId){
-           try{
-               T_mapping_project mappingProject = new T_mapping_project();
-               mappingProject.setId(new IdWorker().nextId()).setCoordinateSystem(coordinateSystem).setMeridian(meridian).setProjectType(projectType).setManagementLevel(managementLevel).setFundingSource(fundingSource).setProjectName(projectName)
-                       .setEntrustUnit(entrustUnit).setAcceptUnit(acceptUnit).setProjectAmount(projectAmount).setProjectLeader(projectLeader).setMobilePhone(mobilePhone).setPhone(phone).setAddress(address).setStartDate(startDate).setEndDate(endDate)
-                       .setAcceptanceDepartment(acceptanceDepartment).setAcceptanceReport(acceptanceReport).setProjectArea(projectArea).setScale(scale).setSheetNumber(sheetNumber).setAwardsDepartment(awardsDepartment).setPrizeLevel(prizeLevel)
-                       .setProjectQualityApproval(projectQualityApproval).setWinningTime(winningTime).setAcceptanceTime(acceptanceTime).setBasicContent(basicContent).setCreditStatus(creditStatus).setSubmitStatus(submitStatus).setUserId(userId);
-           Long addOfResult = mapping_projectService.addMappingProject(mappingProject);
+        try{
+            T_mapping_project mappingProject = new T_mapping_project();
+            mappingProject.setId(new IdWorker().nextId()).setCoordinateSystem(coordinateSystem).setMeridian(meridian).setProjectType(projectType).setManagementLevel(managementLevel).setFundingSource(fundingSource).setProjectName(projectName)
+                    .setEntrustUnit(entrustUnit).setAcceptUnit(acceptUnit).setProjectAmount(projectAmount).setProjectLeader(projectLeader).setMobilePhone(mobilePhone).setPhone(phone).setAddress(address).setStartDate(startDate).setEndDate(endDate)
+                    .setAcceptanceDepartment(acceptanceDepartment).setAcceptanceReport(acceptanceReport).setProjectArea(projectArea).setScale(scale).setSheetNumber(sheetNumber).setAwardsDepartment(awardsDepartment).setPrizeLevel(prizeLevel)
+                    .setProjectQualityApproval(projectQualityApproval).setWinningTime(winningTime).setAcceptanceTime(acceptanceTime).setBasicContent(basicContent).setCreditStatus(creditStatus).setSubmitStatus(submitStatus).setUserId(userId);
+            Long addOfResult = mapping_projectService.addMappingProject(mappingProject);
             if (addOfResult==0) {
-               return insertFailed();
+                return insertFailed();
             }
-               Boolean aBoolean = mapping_projectService.beforeToDo(multipartFile,t_resourceService, addOfResult);
+            Boolean aBoolean = mapping_projectService.beforeToDo(multipartFile,t_resourceService, addOfResult);
             if (aBoolean){
                 return insertSuccess();
             }
-           }catch (Exception e){
-               e.printStackTrace();
-           }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         return insertFailed();
     }
