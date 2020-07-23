@@ -5,6 +5,7 @@ import com.aaa.vo.StatisticsLevelVo;
 import com.aaa.vo.StatisticsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class StatisticsService {
     /**
      * 统计图3
      */
-   public List<Map<String,Object>> getSheBeiStatisticsAll(StatisticsVo statisticsVo ){
+   public List<Map<String,Object>> getSheBeiStatisticsAll(@RequestBody StatisticsVo statisticsVo ){
         List<Map<String, Object>> personnelStatistics = statisticsMapper.getPersonnelStatistics( statisticsVo);
         List<Map<String, Object>> sheBeiStatistics = statisticsMapper.getSheBeiStatistics(statisticsVo);
        List<Map<String, Object>> zhiStatistics = statisticsMapper.getZhiStatistics(statisticsVo);

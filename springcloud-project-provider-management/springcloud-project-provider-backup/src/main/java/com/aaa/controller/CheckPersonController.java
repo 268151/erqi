@@ -12,10 +12,7 @@ import com.aaa.utils.FileNameUtils;
 import com.aaa.utils.PageInfoRandom;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,8 +26,8 @@ public class CheckPersonController extends CommonController<T_check_person> {
     @Autowired
     private CheckPersonService checkPersonService;
 
-    @GetMapping("/allcheckperson")
-    public ResultData selectCheckPersonBypage(T_check_person check_person,Integer pageNum,Integer pageSize){
+    @PostMapping("/allcheckperson")
+    public ResultData selectCheckPersonBypage(@RequestBody T_check_person check_person, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize){
         try {
 
             PageInfo<T_check_person> checkPerson = checkPersonService.selectAllCheckPerson(check_person, pageNum,pageSize);
@@ -117,8 +114,6 @@ public class CheckPersonController extends CommonController<T_check_person> {
         PageInfoRandom<T_check_person> pageInfo=new PageInfoRandom<>(randomUnit,pageNum,pageSize);
         return operationSuccess(pageInfo);
     }
-
-
 
 
     }

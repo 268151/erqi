@@ -283,7 +283,7 @@ public abstract class CommonController<T> extends BaseController {
              pageNo=Integer.valueOf(map.get("pageNo").toString());
              pageSize=Integer.valueOf(map.get("pageSize").toString());
         }
-        ResultData resultData = selectListByPage(map, pageNo,pageSize);
+        ResultData resultData = selectListByPage(map);
         return resultData;
 
     }

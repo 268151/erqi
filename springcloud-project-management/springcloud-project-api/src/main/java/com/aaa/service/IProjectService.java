@@ -1,15 +1,14 @@
 package com.aaa.service;
 
 import com.aaa.base.ResultData;
-import com.aaa.model.LoginLog;
-import com.aaa.model.T_role;
-import com.aaa.model.T_special_post;
-import com.aaa.model.T_user;
+import com.aaa.model.*;
 import com.aaa.vo.StatisticsVo;
 import com.aaa.vo.TreeKeys;
 import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author: dz
@@ -95,7 +94,36 @@ public interface IProjectService {
 
 
 
+    //TODO 抽查
 
 
+    @PostMapping("/allcheckperson")
+    public ResultData selectCheckPersonBypage(@RequestBody T_check_person check_person, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
-}
+    @PostMapping("/addCheckPersons")
+    public ResultData addCheckPerson(@RequestBody T_check_person check_person);
+
+    @PostMapping("/updateCheckPersons")
+    public ResultData updateCheckPerson(@RequestBody T_check_person check_person);
+
+    @PostMapping("/delCheckPersons")
+    public ResultData delCheckPerson(@RequestBody T_check_person check_person);
+
+    @GetMapping("/getRandomUnitlimitCheck")
+    public ResultData  getRandomUnitlimitCheck(@RequestParam Integer  pageNum, @RequestParam Integer pageSize);
+
+    @GetMapping("/getRandomUnitinitCheck")
+    public ResultData  getRandomUnitinitCheck(@RequestParam Double scale,@RequestParam Integer  pageNum,@RequestParam Integer pageSize);
+
+
+    //TODO 特殊人才
+
+    @PostMapping("/getPrincipalAll")
+    public ResultData getAllBypage1(  @RequestBody T_principal t_principal, @RequestParam("pageNo") int pageNo,  @RequestParam("pageNo")int pageSize);
+
+    @PostMapping("/insertPrincipalall")
+    public  ResultData insertPrincipalall(@RequestBody T_principal t_principal);
+    @PostMapping("updatePrincipalall")
+    public  ResultData updatePrincipalall(@RequestBody T_principal t_principal);
+
+    }

@@ -1,0 +1,59 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.mapper.StatisticsMapper">
+
+
+    <select id="getPersonnelStatistics" resultType="java.util.Map">
+
+      select  count(1) value ,tu.qualification_level level ,tt.major_type type from t_mapping_unit tu join  t_technicist tt on tu.user_id =tt.user_id
+       <where>
+           <if test="qu == 0 and qu != null" >
+             tu.owned_district not in ('江城区','阳春市','阳东区','阳西县')
+           </if>
+           <if test="qu == 1 and qu != null" >
+              and  tu.owned_district  in ('江城区','阳春市','阳东区','阳西县')
+           </if>
+           <if test="date!=null">
+               and
+               YEAR(tu.create_time) = #{date}
+           </if>
+       </where>
+  group by tu.qualification_level ,tt.major_type
+
+    </select>
+    <select id="getSheBeiStatistics" resultType="java.util.Map">
+   select  count(1) value ,tu.qualification_level level ,te.name type from t_mapping_unit tu join  t_equipment te on tu.user_id =te.user_id
+        <where>
+
+            <if test="qu == 0 and qu!=null" >
+                tu.owned_district not in ('江城区','阳春市','阳东区','阳西县')
+            </if>
+            <if test="qu == 1 and qu!=null" >
+               and  tu.owned_district  in ('江城区','阳春市','阳东区','阳西县')
+            </if>
+            <if test="date!=null">
+                and
+                YEAR(tu.create_time) = #{date}
+            </if>
+        </where>
+    group by tu.qualification_level ,te.name
+    </select>
+
+
+    <select id="getZhiStatistics" resultType="java.util.Map">
+        	select count(1) levelvalue , qualification_level  level from  t_mapping_unit
+        <where>
+            <if test="qu == 0 and qu!=null" >
+                owned_district not in ('江城区','阳春市','阳东区','阳西县')
+            </if>
+            <if test="qu == 1 and qu!=null" >
+               and  owned_district  in ('江城区','阳春市','阳东区','阳西县')
+            </if>
+            <if test="date!=null">
+                and
+                YEAR(create_time) = #{date}
+            </if>
+        </where>
+        	GROUP BY qualification_level
+    </select>
+</mapper>

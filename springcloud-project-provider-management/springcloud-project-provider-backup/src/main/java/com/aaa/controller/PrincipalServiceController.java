@@ -33,7 +33,7 @@ public class PrincipalServiceController  extends CommonController<T_principal> {
      * @return
      */
     @PostMapping("/getPrincipalAll")
-    public ResultData getAllBypage1(  T_principal t_principal,  int pageNo,  int pageSize){
+    public ResultData getAllBypage1(  @RequestBody T_principal t_principal, @RequestParam("pageNo") int pageNo,  @RequestParam("pageNo")int pageSize){
         return getAllBypage(t_principal,pageNo,pageSize);
     }
 
@@ -43,7 +43,7 @@ public class PrincipalServiceController  extends CommonController<T_principal> {
      * @return
      */
     @PostMapping("/insertPrincipalall")
-    public  ResultData insertPrincipalall(T_principal t_principal){
+    public  ResultData insertPrincipalall(@RequestBody T_principal t_principal){
         return reponseupdate(principalService.add(t_principal));
     }
 

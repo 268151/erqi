@@ -93,8 +93,8 @@ public class T_mapping_project_Controller extends CommonController<T_mapping_pro
     @GetMapping("/ByUserIdProject")
     public ResultData selectProjectByUserId(MappingProjectVo mappingProjectVo,Long user_id){
         try {
-            PageInfo<T_mapping_project> mapping_projectByUserId = mapping_projectService.selectProjectByUserId(mappingProjectVo,user_id);
-            if (mapping_projectByUserId.getList().size()>0&&mapping_projectByUserId!=null) {
+            PageInfo<T_mapping_project> mapping_projectByUserId = mapping_projectService.selectProjectByUserId(mappingProjectVo,user_id,"");
+            if (mapping_projectByUserId.getList().size()>0 && mapping_projectByUserId!=null) {
                 return operationSuccess(mapping_projectByUserId);
             }else {
                 ResultData resultData = new ResultData();
