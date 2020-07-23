@@ -62,7 +62,9 @@
 
 
 
-
+  <update id="UpdateMappingScore" parameterType="com.aaa.model.T_mapping_unit">
+    update t_mapping_unit set score=score+(#{score}) where id=#{id}
+  </update>
 
 
   <update id="updateScore">
@@ -77,27 +79,16 @@
   id = #{unitId}
   </where>
   </update>
-  <select id="selectUpdateAuditStatus" resultType="com.aaa.model.T_mapping_unit">
-    select * from t_mapping_unit where audit_status=2
-    <if test="unit_name != null">
-      and unit_name=#{unit_name}
-    </if>
-  </select>
-  <select id="selectRegistAuditStatus" resultType="com.aaa.model.T_mapping_unit">
-    select * from t_mapping_unit where audit_status=3
-    <if test="unit_name != null">
-      and unit_name=#{unit_name}
-    </if>
-  </select>
 
 
+    <select id="getRomdan" resultMap="BaseResultMap">
+        SELECT * FROM t_mapping_unit
+          where qualification_level='丙级' or qualification_level='丁级'
+        <if test="qu != null">
+          and owned_district=#{qu}
+        </if>
+    </select>
 
-  <select id="selectByWhite" resultMap="BaseResultMap">
-  SELECT * FROM t_mapping_unit where score>100
-  </select>
-  <select id="selectByBlack" resultMap="BaseResultMap">
-  SELECT * FROM t_mapping_unit where  60 > score
-  </select>
 
 
 </mapper>

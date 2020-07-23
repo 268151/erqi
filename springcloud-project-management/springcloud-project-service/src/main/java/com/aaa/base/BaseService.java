@@ -71,7 +71,7 @@ public abstract class BaseService<T> {
      * @param ids
      * @return
      */
-    public Integer deleteByIds(List ids){
+    public Integer deleteByIds(List<Integer> ids){
         Example example = Example.builder(getTypeArguement()).where(Sqls.custom().andIn("id", ids)).build();
         return mapper.deleteByExample(example);
     }

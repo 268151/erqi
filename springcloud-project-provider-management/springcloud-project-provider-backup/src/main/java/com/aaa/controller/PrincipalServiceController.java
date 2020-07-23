@@ -34,7 +34,6 @@ public class PrincipalServiceController  extends CommonController<T_principal> {
      */
     @PostMapping("/getPrincipalAll")
     public ResultData getAllBypage1(  @RequestBody T_principal t_principal, @RequestParam("pageNo") int pageNo,  @RequestParam("pageNo")int pageSize){
-
         return getAllBypage(t_principal,pageNo,pageSize);
     }
 

@@ -1,5 +1,7 @@
 package com.aaa.controller;
 
+
+import com.aaa.annotation.RoleAnnotion;
 import com.aaa.base.BaseService;
 import com.aaa.base.CommonController;
 import com.aaa.base.ResultData;
@@ -38,10 +40,7 @@ public class RoleController extends CommonController<T_role> {
     @PostMapping("/getRole")
     public ResultData getRole(@RequestBody T_role  t_role){
         List<T_role> selectall = roleService.selectall(t_role);
-        if(selectall!=null&&selectall.size()>0){
-         return    operationSuccess(selectall);
-        }
-        return operationFailed();
+       return reponseListStatus(selectall);
     }
 
     /**
@@ -51,7 +50,6 @@ public class RoleController extends CommonController<T_role> {
      */
     @PostMapping("/updateResource")
     public ResultData updateResource(@RequestBody TreeKeys treeKeys){
-
         int i = roleService.updateRoleMeun(treeKeys);
         if(i>0){
             return operationSuccess();
@@ -76,5 +74,12 @@ public class RoleController extends CommonController<T_role> {
 
     }
 
+    @RoleAnnotion(roleName = "管理员")
+    @GetMapping("/getRoleRe123")
+    public ResultData getRoleRe(){
+
+        System.out.println("123");
+        return operationFailed();
+    }
 
 }
