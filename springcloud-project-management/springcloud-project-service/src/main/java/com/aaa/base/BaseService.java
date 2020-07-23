@@ -52,6 +52,10 @@ public abstract class BaseService<T> {
         return mapper.insert(t);
     }
 
+    public Integer addIsNull(T t){
+        return mapper.insertSelective(t);
+    }
+
 
     /**
      * 根据主键进行删除
@@ -67,7 +71,7 @@ public abstract class BaseService<T> {
      * @param ids
      * @return
      */
-    public Integer deleteByIds(List<Integer> ids){
+    public Integer deleteByIds(List ids){
         Example example = Example.builder(getTypeArguement()).where(Sqls.custom().andIn("id", ids)).build();
         return mapper.deleteByExample(example);
     }

@@ -8,9 +8,7 @@ import com.aaa.vo.DictVo;
 import com.aaa.service.TDictService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class T_dictController extends CommonController<T_dict> {
@@ -32,8 +30,8 @@ public class T_dictController extends CommonController<T_dict> {
      * @desc: 
      */
     
-    @GetMapping("/alldict")
-    public ResultData selectDictByPage(DictVo dictVo){
+    @PostMapping("/alldict")
+    public ResultData selectDictByPage(@RequestBody DictVo dictVo){
         try {
             PageInfo<T_dict> tDictPageInfo = tDictService.selectDictByPage(dictVo);
             if (tDictPageInfo.getList().size()>0&&tDictPageInfo!=null) {

@@ -11,12 +11,12 @@ import com.aaa.service.T_mapping_projectService;
 import com.aaa.service.T_mapping_unitService;
 import com.aaa.utils.DateUtils;
 import com.aaa.utils.FileNameUtils;
+import com.aaa.vo.ProjectVo;
+import com.aaa.vo.SheHeVo;
 import com.aaa.vo.T_auditVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -43,8 +43,8 @@ public class T_auditController extends CommonController<T_audit> {
      * @desc: 查询审核记录
      */
 
-    @GetMapping("/allaudit")
-    public ResultData selectAdit(T_audit audit,Integer pageNum,Integer pageSize) {
+    @PostMapping("/allaudit")
+    public ResultData selectAdit(@RequestBody T_audit audit, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         try {
 
         PageInfo<T_audit> auditPageInfo = auditService.selectAuditByPage(audit, pageNum,pageSize);
@@ -68,8 +68,9 @@ public class T_auditController extends CommonController<T_audit> {
      * @desc: 生成修改单位审核后的记录
      */
     @PostMapping("/addUpdateUnitAuditStatus")
-    public ResultData addUpdateUnitAuditStatus(T_mapping_unit mapping_unit,T_audit audit){
-        return commontsehe1(mapping_unit,audit,UNIT_SHEHE.getName(),UNIT_SHEHE.getType());
+    public ResultData addUpdateUnitAuditStatus(@RequestBody SheHeVo sheHeVo){
+        return commontsehe1(sheHeVo.getT_mapping_unit(),sheHeVo.getAudit(),UNIT_SHEHE.getName(),UNIT_SHEHE.getType());
+
 
 
     }
@@ -83,8 +84,8 @@ public class T_auditController extends CommonController<T_audit> {
      * @desc: 生成注册单位审核后的记录
      */
     @PostMapping("/addRegisterUnitAuditStatus")
-    public ResultData addRegisterUnitAuditStatus(T_mapping_unit mapping_unit,T_audit audit){
-      return commontsehe1(mapping_unit,audit,REGUNIT_SHEHE.getName(),REGUNIT_SHEHE.getType());
+    public ResultData addRegisterUnitAuditStatus(@RequestBody SheHeVo sheHeVo){
+      return commontsehe1(sheHeVo.getT_mapping_unit(),sheHeVo.getAudit(),REGUNIT_SHEHE.getName(),REGUNIT_SHEHE.getType());
 
     }
 
@@ -96,8 +97,8 @@ public class T_auditController extends CommonController<T_audit> {
      */
     
     @PostMapping("/addProjectFowardAuditStatus")
-    public ResultData addProjectFowardAuditStatus(T_mapping_project mapping_project,T_audit audit){
-        return commontsehe2(mapping_project,audit,PROJECT_FORWARD.getName(),PROJECT_FORWARD.getType());
+    public ResultData addProjectFowardAuditStatus(@RequestBody ProjectVo projectVo){
+        return commontsehe2(projectVo.getMapping_project(),projectVo.getAudit(),PROJECT_FORWARD.getName(),PROJECT_FORWARD.getType());
 
     }
 
@@ -109,8 +110,8 @@ public class T_auditController extends CommonController<T_audit> {
      */
 
     @PostMapping("/addRegProjectAuditStatus")
-    public ResultData addRegProjectAuditStatus(T_mapping_project mapping_project,T_audit audit){
-        return commontsehe2(mapping_project,audit,REGPROJECT_SHENHE.getName(),REGPROJECT_SHENHE.getType());
+    public ResultData addRegProjectAuditStatus(@RequestBody ProjectVo projectVo){
+        return commontsehe2(projectVo.getMapping_project(),projectVo.getAudit(),REGPROJECT_SHENHE.getName(),REGPROJECT_SHENHE.getType());
 
     }
 
@@ -123,8 +124,8 @@ public class T_auditController extends CommonController<T_audit> {
      */
 
     @PostMapping("/addProjectResultAuditStatus")
-    public ResultData addProjectResultAuditStatus(T_mapping_project mapping_project,T_audit audit){
-        return commontsehe2(mapping_project,audit,PROJECT_RESULT.getName(),PROJECT_RESULT.getType());
+    public ResultData addProjectResultAuditStatus(@RequestBody ProjectVo projectVo){
+        return commontsehe2(projectVo.getMapping_project(),projectVo.getAudit(),PROJECT_RESULT.getName(),PROJECT_RESULT.getType());
 
     }
 
