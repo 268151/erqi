@@ -3,7 +3,6 @@ package com.aaa.service;
 import com.aaa.base.BaseService;
 import com.aaa.model.T_check_person;
 
-import com.aaa.model.T_mapping_unit;
 import com.aaa.utils.ObjectUtils;
 import com.aaa.utils.RandomList;
 import com.github.pagehelper.PageInfo;
@@ -13,12 +12,12 @@ import java.util.List;
 
 @Service
 public class CheckPersonService extends BaseService<T_check_person> {
-
     public static List<T_check_person> listcheck;
 
     public static void setListcheck(List<T_check_person> listcheck) {
         CheckPersonService.listcheck = listcheck;
     }
+
 
     /**
  * @author: dz
@@ -70,7 +69,6 @@ public class CheckPersonService extends BaseService<T_check_person> {
         return 0;
 
     }
-
     /**
      * 随机抽查的人
      * @param scale
@@ -87,8 +85,5 @@ public class CheckPersonService extends BaseService<T_check_person> {
         }
         return listcheck;
     }
-
-
-
 
 }
