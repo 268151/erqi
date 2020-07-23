@@ -63,11 +63,11 @@ public class StatisticsController extends BaseController {
 
     /**
      * 统计图3
-     * @return  List<StatisticsLevelVo> getMapToVo
+     * @return
      */
     @GetMapping("/getSheBeiStatisticsAll")
     public ResultData getSheBeiStatisticsAll(@RequestBody StatisticsVo statisticsVo){
-        return reponseListStatus(statisticsService.getMapToVo(statisticsVo));
+        return reponseListStatus(statisticsService.getSheBeiStatisticsAll(statisticsVo));
     }
 
 }

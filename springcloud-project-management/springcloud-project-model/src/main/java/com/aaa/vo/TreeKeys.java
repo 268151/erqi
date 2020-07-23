@@ -1,6 +1,5 @@
 package com.aaa.vo;
 
-import com.aaa.model.T_role;
 import lombok.Data;
 
 /**
@@ -12,5 +11,4 @@ import lombok.Data;
 public class TreeKeys {
     private Integer roleId;
     private Integer []keys;
-    private T_role role;
 }

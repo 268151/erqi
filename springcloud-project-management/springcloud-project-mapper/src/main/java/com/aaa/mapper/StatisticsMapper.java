@@ -36,21 +36,20 @@ public interface StatisticsMapper {
     /**
      * 统计图2.1 查询该公司的人员 人员统计
      */
-
-    @Select("select t1.major_type name ,IFNULL(t2.value,0) value from " +
-            "  (select major_type from t_technicist GROUP BY major_type) t1 left join " +
-            "  (select  count(1) value ,tt.major_type type  from t_mapping_unit tu join  t_technicist tt on tu.user_id =tt.user_id   where tt.user_id=#{userid}  group by tt.major_type) t2 on t1.major_type = t2.type")
+    @Select("select  count(1) value,tt.major_type name from t_mapping_unit tu join  t_technicist tt on tu.user_id =tt.user_id  where tt.user_id=#{userid}  group by tt.major_type ")
     List<Map<String ,Object>> getCompanyPeople(Integer userid);
 
     /**
-     * 特殊人员
-     * @param userid
-     * @return
+     * 统计图2.2 查询该公司的设备类型
      */
-    @Select("select ('特殊人员') name,IFNULL(count(1),0) value from t_special_post where user_id= #{userid}")
+
+    @Select("select  count(1) value,te.name  name from t_mapping_unit tu join  t_equipment te on tu.user_id =te.user_id group by te.name where tt.user_id=#{userid}")
+    List<Map<String ,Object>> getCompanyShebei(Integer userid);
+
+    @Select("select ('特殊人员') name,count(1)  value from t_special_post where user_id= #{userid}")
     List<Map<String,Object>> getCompanySpe(Integer  userid);
 
-    @Select("select ('项目数量') name,IFNULL(count(1),0) value   from t_mapping_project where user_id = #{userid}")
+    @Select("select ('项目数量') name, count(1)value   from t_mapping_project where user_id = #{userid}")
     List<Map<String,Object>> getCompanyPro(Integer  userid);
 
     /**

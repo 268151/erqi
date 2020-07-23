@@ -271,22 +271,6 @@ public abstract class CommonController<T> extends BaseController {
 
     }
 
-    /**
-     * 通用的查询方法
-     * @param map
-     * @return
-     */
-    public ResultData getAllBypageMap( Map map){
-        Integer pageNo=1;
-        Integer pageSize=5;
-        if(map.get("pageNo")!=null&&map.get("pageSize")!=null){
-             pageNo=Integer.valueOf(map.get("pageNo").toString());
-             pageSize=Integer.valueOf(map.get("pageSize").toString());
-        }
-        ResultData resultData = selectListByPage(map, pageNo,pageSize);
-        return resultData;
-
-    }
 
 
 

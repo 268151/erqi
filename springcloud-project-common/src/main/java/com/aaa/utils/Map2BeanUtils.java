@@ -4,9 +4,6 @@ import com.esotericsoftware.reflectasm.MethodAccess;
 import org.objenesis.Objenesis;
 import org.objenesis.ObjenesisStd;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -57,13 +54,9 @@ public class Map2BeanUtils {
              *      }
              */
             String setMethodName = getSetMethodName((String)entry.getKey());
-            String[] methodNames = methodAccess.getMethodNames();
-            List<String> strings = Arrays.asList(methodNames);
-            if(strings.contains(setMethodName)) {
-                int index = methodAccess.getIndex(setMethodName, entry.getValue().getClass());
-                methodAccess.invoke(instance, index, entry.getValue());
-            }
-            }
+            int index = methodAccess.getIndex(setMethodName, entry.getValue().getClass());
+            methodAccess.invoke(instance, index, entry.getValue());
+        }
         return instance;
     }
 

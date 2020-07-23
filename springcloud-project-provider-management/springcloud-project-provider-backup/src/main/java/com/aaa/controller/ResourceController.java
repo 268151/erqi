@@ -9,7 +9,6 @@ import com.aaa.vo.TreeData;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -38,7 +37,7 @@ public class ResourceController extends BaseController {
      * @return
      */
     @GetMapping("/getMenu")
-    public ResultData getMenu(@RequestParam("uid") Integer uid){
+    public ResultData getMenu(@Param("uid") Integer uid){
         List<T_menu> resources = resourcesService.getResources(uid);
        return reponseListStatus(resources);
     }

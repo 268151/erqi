@@ -34,15 +34,13 @@ public class RoleService extends BaseService<T_role> {
     }
 
     /**
-     * 修改 权限树 ——资源
+     * 修改资源
      * @param treeKeys  添加事务
      * @return
      */
     @Transactional(rollbackFor=Exception.class)
     public int updateRoleMeun(TreeKeys treeKeys){
-        if(treeKeys.getRole()!=null){
-            Integer update = update(treeKeys.getRole());
-        }
+
         int sum=0;
         int i = roleMapper.delByRoleid(treeKeys.getRoleId());
         if(i>0){

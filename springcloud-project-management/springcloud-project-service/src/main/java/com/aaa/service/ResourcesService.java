@@ -3,7 +3,6 @@ package com.aaa.service;
 
 import com.aaa.mapper.T_menuMapper;
 import com.aaa.model.T_menu;
-import com.aaa.utils.ObjectUtils;
 import com.aaa.vo.TreeData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,16 +52,12 @@ public class ResourcesService{
         for (T_menu menu : oneMenu) {
             //  第二菜单
             List<T_menu> twoMenu = resourcesMapper.getChildMenu(userid,menu.getMenuId().intValue());
-
-            if(ObjectUtils.CollectionIsNull(twoMenu)){
-
-                for (T_menu t_menu : twoMenu) {
-                    //    第三菜单
-                    List<T_menu>threeMenu=resourcesMapper.getChildMenu(userid,t_menu.getMenuId().intValue());
-                    t_menu.setChildren(threeMenu);
-                }
-                menu.setChildren(twoMenu);
+            for (T_menu t_menu : twoMenu) {
+                //    第三菜单
+                List<T_menu>threeMenu=resourcesMapper.getChildMenu(userid,t_menu.getMenuId().intValue());
+                t_menu.setChildren(threeMenu);
             }
+            menu.setChildren(twoMenu);
         }
             return oneMenu;
     }
