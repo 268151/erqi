@@ -134,30 +134,29 @@ public class T_mapping_projectService extends BaseService<T_mapping_project> {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public Boolean
-    beforeToDo(MultipartFile[] multipartFile,String refBizType,T_resourceService resourceService,Long tyid) throws Exception {
+    public Boolean beforeToDo(MultipartFile multipartFile,T_resourceService resourceService,Long tyid) throws Exception {
         Integer add=0;
         boolean uploadFileOfResult =false;
-        for (MultipartFile file : multipartFile) {
-            String filePath = DateUtils.formatDate(new Date(), TIME_TYPE02);
-            String suffix = "." + file.getOriginalFilename().split("\\.")[1];
-            String newFileName = FileNameUtils.getFileName() + suffix;
-            //String createTimeAndModifyTime=DateUtils.formatDate(new Date(),TIME_TYPE);
-             uploadFileOfResult = FtpUtils.upload(FTP_HOST, FTP_PORT, FTP_USERNAME, FTP_PASSWORD, FTP_BASE_PATH, filePath, newFileName, file.getInputStream());
-            //将数据放到t_resource中
-            T_resource resource = new T_resource();
-            resource.setId(new IdWorker().nextId())
-                    .setName(file.getOriginalFilename())
-                    .setSize(file.getSize())
-                    .setPath(FTP_IP + "/" + filePath + "/" + newFileName)
-                    .setExtName(suffix)
-                    .setRefBizType(refBizType)
-                    .setRefBizId(tyid)
-                    .setCreateTime(new Date())
-                    .setModifyTime(new Date());
-             add = resourceService.add(resource);
+        /* for (MultipartFile file : multipartFile) {*/
+        String filePath = DateUtils.formatDate(new Date(), TIME_TYPE02);
+        String suffix = "." + multipartFile.getOriginalFilename().split("\\.")[1];
+        String newFileName = FileNameUtils.getFileName() + suffix;
+        //String createTimeAndModifyTime=DateUtils.formatDate(new Date(),TIME_TYPE);
+        uploadFileOfResult = FtpUtils.upload(FTP_HOST, FTP_PORT, FTP_USERNAME, FTP_PASSWORD, FTP_BASE_PATH, filePath, newFileName, multipartFile.getInputStream());
+        //将数据放到t_resource中
+        T_resource resource = new T_resource();
+        resource.setId(new IdWorker().nextId())
+                .setName(multipartFile.getOriginalFilename())
+                .setSize(multipartFile.getSize())
+                .setPath(FTP_IP + "/" + filePath + "/" + newFileName)
+                .setExtName(suffix)
+                /* .setRefBizType(refBizType)*/
+                .setRefBizId(tyid)
+                .setCreateTime(new Date())
+                .setModifyTime(new Date());
+        add = resourceService.addIsNull(resource);
 
-        }
+        /*}*/
         if (add >0 && uploadFileOfResult) {
             return true;
         }

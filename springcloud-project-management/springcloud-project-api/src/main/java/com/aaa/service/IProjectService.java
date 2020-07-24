@@ -91,11 +91,11 @@ public interface IProjectService {
     public ResultData getSpecial(@RequestBody T_special_post tSpecialPost, @RequestParam("pageNo") Integer pageNo, @RequestParam("PageSize") Integer PageSize);
 
 
-    @GetMapping("/insertSpecial")
+    @PostMapping("/insertSpecial")
     public ResultData insertSpecial(@RequestBody T_special_post tSpecialPost);
 
-    @GetMapping("/delSpecial")
-    public   ResultData delSpecial(T_special_post tSpecialPost);
+    @PostMapping("/delSpecial")
+    public   ResultData delSpecial(@RequestBody T_special_post tSpecialPost);
 
 
     //TODO 项目
