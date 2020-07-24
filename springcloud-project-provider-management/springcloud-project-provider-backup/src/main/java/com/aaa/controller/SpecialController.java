@@ -32,13 +32,13 @@ public class SpecialController extends CommonController<T_special_post> {
     public ResultData getSpecial(@RequestBody T_special_post tSpecialPost, Integer pageNo, Integer PageSize){
         return getAllBypage(tSpecialPost,pageNo,PageSize);
     }
-    @GetMapping("/insertSpecial")
-    public ResultData insertSpecial(T_special_post tSpecialPost){
+    @PostMapping("/insertSpecial")
+    public ResultData insertSpecial(@RequestBody T_special_post tSpecialPost){
         return reponseInsert( specialService.add(tSpecialPost));
     }
 
-    @GetMapping("/delSpecial")
-    public   ResultData delSpecial(T_special_post tSpecialPost){
+    @PostMapping("/delSpecial")
+    public   ResultData delSpecial(@RequestBody T_special_post tSpecialPost){
         return reponseDel(specialService.delete(tSpecialPost));
     }
 
