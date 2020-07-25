@@ -1,5 +1,6 @@
 package com.aaa.controller;
 
+import com.aaa.annotation.RedisAnnotation;
 import com.aaa.base.BaseService;
 import com.aaa.base.CommonController;
 import com.aaa.base.ResultData;
@@ -10,6 +11,7 @@ import com.aaa.utils.DateUtils;
 import com.aaa.utils.FileNameUtils;
 import com.aaa.utils.PageInfoRandom;
 import com.github.pagehelper.PageInfo;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,7 @@ public class CheckPersonController extends CommonController<T_check_person> {
     @Autowired
     private CheckPersonService checkPersonService;
 
+    @RedisAnnotation
     @PostMapping("/allcheckperson")
     public ResultData selectCheckPersonBypage(@RequestBody T_check_person check_person, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize){
         try {
