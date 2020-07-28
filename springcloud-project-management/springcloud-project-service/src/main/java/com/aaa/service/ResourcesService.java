@@ -4,6 +4,7 @@ package com.aaa.service;
 import com.aaa.mapper.T_menuMapper;
 import com.aaa.model.T_menu;
 import com.aaa.utils.ObjectUtils;
+import com.aaa.vo.MenuVo;
 import com.aaa.vo.TreeData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,10 +29,10 @@ public class ResourcesService{
         List<T_menu> sysMenu = resourcesMapper.getSysMenu(0);
         for (T_menu menu : sysMenu) {
 
-            List<T_menu> sysMenu1 = resourcesMapper.getSysMenu(0);
+            List<T_menu> sysMenu1 = resourcesMapper.getSysMenu(menu.getMenuId().intValue());
             menu.setChildren(sysMenu1);
             for (T_menu t_menu : sysMenu1) {
-                List<T_menu> sysMenu2 = resourcesMapper.getSysMenu(0);
+                List<T_menu> sysMenu2 = resourcesMapper.getSysMenu(menu.getMenuId().intValue());
                 t_menu.setChildren(sysMenu2);
             }
         }
@@ -44,24 +45,24 @@ public class ResourcesService{
      * @param userid
      * @return
      */
-    public List<T_menu> getResources(Integer userid){
+    public List<MenuVo> getResources(Integer userid){
         //          第一菜单
-        List<T_menu> oneMenu = resourcesMapper.getChildMenu(userid,0);
+        List<MenuVo> oneMenu = resourcesMapper.getChildMenu(userid,0);
         if(oneMenu==null&&oneMenu.size()==0){
             throw new RuntimeException("查询有误");
         }
-        for (T_menu menu : oneMenu) {
+        for (MenuVo menu : oneMenu) {
             //  第二菜单
-            List<T_menu> twoMenu = resourcesMapper.getChildMenu(userid,menu.getMenuId().intValue());
+            List<MenuVo> twoMenu = resourcesMapper.getChildMenu(userid,menu.getId().intValue());
 
-            if(ObjectUtils.CollectionIsNull(twoMenu)){
+            if(!ObjectUtils.CollectionIsNull(twoMenu)){
 
-                for (T_menu t_menu : twoMenu) {
+                for (MenuVo t_menu : twoMenu) {
                     //    第三菜单
-                    List<T_menu>threeMenu=resourcesMapper.getChildMenu(userid,t_menu.getMenuId().intValue());
-                    t_menu.setChildren(threeMenu);
+                    List<MenuVo>threeMenu=resourcesMapper.getChildMenu(userid,t_menu.getId().intValue());
+                    t_menu.setList(threeMenu);
                 }
-                menu.setChildren(twoMenu);
+                menu.setList(twoMenu);
             }
         }
             return oneMenu;

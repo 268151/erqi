@@ -5,6 +5,7 @@ import com.aaa.base.ResultData;
 import com.aaa.model.T_menu;
 import com.aaa.service.ResourcesService;
 import com.aaa.utils.ObjectUtils;
+import com.aaa.vo.MenuVo;
 import com.aaa.vo.TreeData;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -39,8 +41,10 @@ public class ResourceController extends BaseController {
      */
     @GetMapping("/getMenu")
     public ResultData getMenu(@RequestParam("uid") Integer uid){
-        List<T_menu> resources = resourcesService.getResources(uid);
-       return reponseListStatus(resources);
+        List<MenuVo> resources = resourcesService.getResources(uid);
+        HashMap<String, Object> objectObjectHashMap = new HashMap<>();
+        objectObjectHashMap.put("list",resources);
+        return operationSuccess(objectObjectHashMap);
     }
 
     /**

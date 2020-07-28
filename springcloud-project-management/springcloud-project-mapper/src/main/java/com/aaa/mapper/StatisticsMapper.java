@@ -18,19 +18,19 @@ public interface StatisticsMapper {
     /**
      * 统计图 1.1  单位资质统计
      */
-    @Select("select qualification_level name, count(1)  value from  t_mapping_unit  group by  qualification_level")
+    @Select("select count(1)  value, qualification_level name from  t_mapping_unit  group by  qualification_level")
     List<Map<String ,Object>> getQualification();
 
     /**
      * 统计图1.2 查询未完成成功的
      */
-    @Select("select CONCAT_WS('','未完成',project_type) name,  count(1) value from t_mapping_project where status=2  group by project_type")
+    @Select("select count(1) value, CONCAT_WS('','未完成',project_type) name from t_mapping_project where status=2  group by project_type")
     List<Map<String ,Object>> getNoproject();
 
     /**
      * 统计图1.2 查询未完成成功的
      */
-    @Select("select CONCAT_WS('','已完成',project_type) name,  count(1) value from t_mapping_project where status=3  group by project_type")
+    @Select("select count(1) value, CONCAT_WS('','已完成',project_type) name from t_mapping_project where status=3  group by project_type")
     List<Map<String ,Object>> getYesproject();
 
     /**

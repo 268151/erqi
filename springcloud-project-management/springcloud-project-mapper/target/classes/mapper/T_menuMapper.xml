@@ -17,8 +17,9 @@
     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
     <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <select id="getChildMenu" resultMap="BaseResultMap">
-         select tm.* from
+
+  <select id="getChildMenu" resultType="com.aaa.vo.MenuVo">
+         select tm.MENU_ID id,tm.MENU_NAME title,tm.PATH href,tm.ICON icon from
              t_user_role ur left join t_role_menu rm on ur.ROLE_ID=rm.ROLE_ID
              join t_menu tm on tm.MENU_ID =rm.MENU_ID
               where tm.PARENT_ID=#{parentid} and ur.USER_ID=#{userid}

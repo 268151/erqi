@@ -1,6 +1,7 @@
 package com.aaa.mapper;
 
 import com.aaa.model.T_menu;
+import com.aaa.vo.MenuVo;
 import com.aaa.vo.TreeData;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -14,7 +15,7 @@ import java.util.List;
 public interface T_menuMapper extends Mapper<T_menu> {
 
 
-    List<T_menu> getChildMenu(@Param("userid") Integer userid, @Param("parentid") Integer parentid);
+    List<MenuVo> getChildMenu(@Param("userid") Integer userid, @Param("parentid") Integer parentid);
 
 
     List<T_menu>getSysMenu(Integer pid);
